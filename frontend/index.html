@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DND_IA - An immersive AI-powered D&D roleplay experience">
+  <meta name="theme-color" content="#6d28d9">
+  <title>DND_IA - Epic Adventures Await</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/game-enhancements.css">
+  <link rel="stylesheet" href="css/cinematic-campaigns.css">
+  <link rel="stylesheet" href="css/character-creator.css">
+</head>
+
+<body>
+  <!-- Language Toggle -->
+  <button id="language-toggle" class="language-toggle-btn" title="Switch Language">
+    🇺🇸 EN
+  </button>
+
+  <!-- Animated Background -->
+  <div class="app-background">
+    <div class="particle" style="left: 10%; top: 20%;"></div>
+    <div class="particle" style="left: 80%; top: 40%;"></div>
+    <div class="particle" style="left: 30%; top: 70%;"></div>
+    <div class="particle" style="left: 70%; top: 15%;"></div>
+    <div class="particle" style="left: 50%; top: 85%;"></div>
+  </div>
+
+  <!-- App Container -->
+  <div class="app-container">
+    <!-- Login Page -->
+    <div id="login-page" class="page-container hidden">
+      <div class="login-container">
+        <div class="glass-card login-card">
+          <div class="login-header">
+            <h1 class="login-title" id="login-title" data-i18n="login-title">Enter the Realm</h1>
+          </div>
+
+          <div id="error-container"></div>
+
+          <form id="auth-form">
+            <div id="username-group" class="input-group hidden">
+              <label class="input-label" for="username" data-i18n="username-label">Username</label>
+              <input type="text" id="username" class="input-field" placeholder="Choose your adventurer name"
+                data-i18n="username-placeholder" />
+            </div>
+
+            <div class="input-group">
+              <label class="input-label" for="email" data-i18n="email-label">Email</label>
+              <input type="email" id="email" class="input-field" placeholder="your.email@example.com" required />
+            </div>
+
+            <div class="input-group">
+              <label class="input-label" for="password" data-i18n="password-label">Password</label>
+              <input type="password" id="password" class="input-field" placeholder="••••••••" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;" id="submit-btn"
+              data-i18n="submit-btn-login">
+              Enter World
+            </button>
+          </form>
+
+          <div class="login-toggle">
+            <span id="toggle-text" data-i18n="toggle-text-login">Don't have an account? </span>
+            <button type="button" id="toggle-mode" data-i18n="toggle-btn-signup">Sign up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard-page" class="page-container hidden">
+      <div class="dashboard-grid">
+        <!-- Main Content Area -->
+        <div class="main-content">
+          <!-- Chat Interface -->
+          <div class="glass-card chat-container">
+            <div class="chat-messages" id="chat-messages">
+              <!-- Messages will be inserted here -->
+            </div>
+
+            <!-- HP Bar -->
+            <div class="hp-bar-container">
+              <div class="hp-bar-label">
+                <span>❤️</span>
+                <span id="hp-text" data-i18n="hp-text">HP</span>
+              </div>
+              <div class="hp-bar-bg">
+                <div class="hp-bar-fill" id="hp-bar-fill" style="width: 100%"></div>
+              </div>
+            </div>
+
+            <div id="typing-indicator" class="typing-indicator hidden">
+              <span data-i18n="typing-indicator">AI is conjuring a response</span>
+              <div class="typing-dots">
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+              </div>
+            </div>
+
+            <div class="chat-input-container">
+              <input type="text" id="chat-input" class="input-field chat-input" placeholder="Describe your action..."
+                data-i18n="chat-placeholder" />
+              <button type="button" id="send-btn" class="btn btn-primary" data-i18n="send-btn">
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- User Profile -->
+          <div class="glass-card profile-card" id="user-profile">
+            <div class="profile-header">
+              <div class="profile-avatar" id="profile-avatar">U</div>
+              <div class="profile-info">
+                <h2 id="profile-username">Loading...</h2>
+                <div class="profile-level" id="profile-level">Level 1</div>
+                <div class="profile-xp" id="profile-xp">Experience: 0 / 100</div>
+              </div>
+            </div>
+            <div class="xp-bar">
+              <div class="xp-bar-fill" id="xp-bar-fill" style="width: 0%"></div>
+            </div>
+
+            <button class="btn btn-secondary" id="open-character-sheet" style="width: 100%; margin-top: 1rem;"
+              data-i18n="char-sheet-title">
+              ⚔️ Character Sheet
+            </button>
+            <button class="btn btn-secondary" id="open-settings" style="width: 100%; margin-top: 0.5rem;"
+              data-i18n="settings-btn">
+              ⚙️ Settings
+            </button>
+            <button class="btn btn-secondary" id="logout-btn" style="width: 100%; margin-top: 0.5rem;"
+              data-i18n="logout-btn">
+              🚪 Logout
+            </button>
+          </div>
+
+          <!-- Friends System -->
+          <div class="glass-card friends-card">
+            <div class="friends-header">
+              <h3 data-i18n="find-allies-title">Find Allies</h3>
+              <form id="search-form" class="search-form">
+                <input type="text" id="search-input" class="input-field search-input"
+                  placeholder="Search by username..." data-i18n="search-placeholder" />
+                <button type="submit" class="btn btn-primary" data-i18n="search-btn">
+                  Search
+                </button>
+              </form>
+            </div>
+            <div id="search-results" class="search-results">
+              <!-- Search results will be inserted here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sparkly Mouse Effect Script -->
+  <script>
+    const sparkles = [];
+    const maxSparkles = 20;
+
+    function createSparkle(x, y) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = x + 'px';
+      sparkle.style.top = y + 'px';
+
+      const size = Math.random() * 4 + 2;
+      sparkle.style.width = size + 'px';
+      sparkle.style.height = size + 'px';
+      sparkle.style.pointerEvents = 'none';
+
+      document.body.appendChild(sparkle);
+      sparkles.push(sparkle);
+
+      setTimeout(() => {
+        sparkle.remove();
+        const index = sparkles.indexOf(sparkle);
+        if (index > -1) sparkles.splice(index, 1);
+      }, 1000);
+
+      if (sparkles.length > maxSparkles) {
+        const oldest = sparkles.shift();
+        if (oldest) oldest.remove();
+      }
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      const loginPage = document.getElementById('login-page');
+      if (loginPage && !loginPage.classList.contains('hidden')) {
+        if (Math.random() > 0.85) {
+          createSparkle(e.clientX, e.clientY);
+        }
+      }
+    });
+  </script>
+
+  <!-- Scripts - ES6 Modules -->
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>

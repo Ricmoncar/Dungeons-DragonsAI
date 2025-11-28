@@ -1,0 +1,391 @@
+/* ============================================
+   CINEMATIC INTRO
+   ============================================ */
+
+.cinematic-intro {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.cinematic-intro.show {
+    opacity: 1;
+}
+
+.cinematic-intro.fade-out {
+    opacity: 0;
+}
+
+.cinematic-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Starfield Animation */
+.stars-layer {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, white, transparent),
+        radial-gradient(2px 2px at 60px 70px, white, transparent),
+        radial-gradient(1px 1px at 50px 50px, white, transparent),
+        radial-gradient(1px 1px at 130px 80px, white, transparent),
+        radial-gradient(2px 2px at 90px 10px, white, transparent);
+    background-repeat: repeat;
+    background-size: 200px 200px;
+}
+
+.stars-1 {
+    opacity: 0.7;
+    animation: stars-drift 240s linear infinite;
+}
+
+.stars-2 {
+    opacity: 0.5;
+    animation: stars-drift 180s linear infinite reverse;
+    background-size: 250px 250px;
+}
+
+.stars-3 {
+    opacity: 0.3;
+    animation: stars-drift 300s linear infinite;
+    background-size: 300px 300px;
+}
+
+@keyframes stars-drift {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-200px);
+    }
+}
+
+/* Dragon Silhouette */
+.dragon-silhouette {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><path fill="rgba(138,43,226,0.1)" d="M400 100 L420 120 L450 115 L480 140 L500 130 L520 150 L550 160 L580 180 L600 200 L620 230 L630 260 L620 290 L600 310 L580 330 L560 350 L540 360 L520 370 L500 380 L480 390 L460 395 L440 400 L420 405 L400 410 L380 415 L360 420 L340 425 L320 420 L300 410 L280 400 L260 390 L240 380 L220 370 L200 360 L180 350 L160 330 L140 310 L120 290 L110 260 L120 230 L140 200 L160 180 L180 160 L200 150 L220 140 L240 130 L260 120 L280 115 L300 120 L320 110 L340 100 L360 95 L380 100 Z M350 150 L370 160 L390 155 L410 160 L430 150 L450 145 Q470 140 450 160 L430 180 L410 190 L390 195 L370 190 L350 180 Q330 170 350 150 Z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    animation: dragon-appear 3s ease 0.5s forwards, dragon-breathe 4s ease-in-out 3s infinite;
+}
+
+@keyframes dragon-appear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes dragon-breathe {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.3));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 40px rgba(138, 43, 226, 0.6));
+    }
+}
+
+/* Title Sequence */
+.title-sequence {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+}
+
+.title-line {
+    font-size: 6rem;
+    font-weight: 900;
+    letter-spacing: 0.5rem;
+    color: transparent;
+    background: linear-gradient(135deg, #8a2be2 0%, #da70d6 50%, #ba55d3 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-shadow: 0 0 40px rgba(138, 43, 226, 0.5);
+    margin: 0;
+    opacity: 0;
+}
+
+.title-line-1 {
+    animation: title-appear 1.5s ease 1s forwards;
+}
+
+.title-line-2 {
+    animation: title-appear 1.5s ease 1.7s forwards;
+}
+
+@keyframes title-appear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+.title-divider {
+    width: 400px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, #8a2be2 50%, transparent 100%);
+    margin: 1.5rem auto;
+    opacity: 0;
+    animation: divider-expand 1s ease 2.5s forwards;
+}
+
+@keyframes divider-expand {
+    from {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+.title-subtitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.3rem;
+    color: #da70d6;
+    margin-top: 1rem;
+    opacity: 0;
+    animation: subtitle-fade 1s ease 3.5s forwards;
+}
+
+@keyframes subtitle-fade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Magic Particles */
+.magic-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.magic-particle {
+    position: absolute;
+    background: radial-gradient(circle, #da70d6, transparent);
+    border-radius: 50%;
+    animation: magic-float 3s ease-in-out infinite;
+}
+
+@keyframes magic-float {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translateY(-100px) scale(1.5);
+        opacity: 1;
+    }
+}
+
+/* Skip Button */
+.skip-intro-btn {
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(138, 43, 226, 0.3);
+    border: 2px solid rgba(138, 43, 226, 0.5);
+    border-radius: 2rem;
+    color: #da70d6;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    opacity: 0;
+    animation: skip-fade 0.5s ease 4s forwards;
+}
+
+@keyframes skip-fade {
+    to {
+        opacity: 1;
+    }
+}
+
+.skip-intro-btn:hover {
+    background: rgba(138, 43, 226, 0.5);
+    border-color: #8a2be2;
+    transform: scale(1.05);
+}
+
+/* ============================================
+   CAMPAIGN MANAGEMENT
+   ============================================ */
+
+.campaign-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--border-glass);
+    margin-bottom: var(--space-md);
+}
+
+#current-campaign-name {
+    flex: 1;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.campaigns-content {
+    max-width: 700px;
+    padding: var(--space-2xl);
+}
+
+.campaigns-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.campaigns-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.empty-campaigns {
+    text-align: center;
+    color: var(--text-dim);
+    padding: var(--space-2xl);
+    font-style: italic;
+}
+
+.campaign-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg);
+    background: hsla(255, 100%, 100%, 0.03);
+    border: 2px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-normal);
+}
+
+.campaign-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.campaign-item.active {
+    border-color: var(--accent);
+    background: hsla(255, 100%, 100%, 0.08);
+}
+
+.campaign-info {
+    flex: 1;
+}
+
+.campaign-info h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text);
+}
+
+.campaign-meta {
+    display: flex;
+    gap: var(--space-md);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.campaign-actions {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+.active-badge {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+    .title-line {
+        font-size: 3rem;
+        letter-spacing: 0.25rem;
+    }
+
+    .title-divider {
+        width: 250px;
+    }
+
+    .title-subtitle {
+        font-size: 1rem;
+        letter-spacing: 0.2rem;
+    }
+
+    .dragon-silhouette {
+        width: 400px;
+        height: 300px;
+    }
+
+    .campaign-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-md);
+    }
+
+    .campaign-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
